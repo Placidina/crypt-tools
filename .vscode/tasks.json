@@ -1,0 +1,102 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Linter",
+			"type": "shell",
+			"command": "golangci-lint --color always run",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"group": "test",
+			"problemMatcher": []
+		},
+		{
+			"label": "Test",
+			"type": "shell",
+			"command": "go test ./...",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"group": "test",
+			"problemMatcher": []
+		},
+		{
+			"label": "Dependencies",
+			"type": "shell",
+			"command": "go mod tidy && go mod verify && go mod download",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Build: bcrypt",
+			"type": "shell",
+			"command": "go build -trimpath -ldflags \"-s -w\" -o build/bcrypt github.com/Placidina/crypt-tools/cmd/bcrypt",
+			"options": {
+				"env": {
+					"CGO_ENABLED": "0",
+					"GOFLAGS": "-gcflags=-trimpath=${env:GOPATH} -asmflags=-trimpath=${env:GOPATH}",
+					"GOOS": "linux"
+				}
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Clean: Binary Files",
+			"type": "shell",
+			"command": "rm -r build/",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Clean: Go Mod Cache",
+			"type": "shell",
+			"command": "go clean -modcache",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"group": "build",
+			"problemMatcher": []
+		}
+	]
+}

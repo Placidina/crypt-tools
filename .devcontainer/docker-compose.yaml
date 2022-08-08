@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  crypt-tools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    user: vscode
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    labels:
+      - "vscode=Crypt Tools"
+    privileged: true
+    network_mode: host
+    volumes:
+      - ..:/go/src/github.com/Placidina/crypt-tools
+      - volume-crypt-tools-vscode:/home/vscode
+      - volume-crypt-tools-vscode-bashhistory:/commandhistory
+      - volume-crypt-tools-go-pkg:/go/pkg
+      - volume-crypt-tools-go-bin:/go/bin
+      - ~/.ssh:/tmp/.ssh-localhost:ro
+    environment:
+      - HISTFILE=/commandhistory/.bash_history
+      - HISTSIZE=1000
+
+volumes:
+  volume-crypt-tools-vscode:
+    labels:
+      - "vscode=Crypt Tools VSCode"
+  volume-crypt-tools-vscode-bashhistory:
+    labels:
+      - "vscode=Crypt Tools Bash History"
+  volume-crypt-tools-go-pkg:
+    labels:
+      - "vscode=Crypt Tools Go PKG"
+  volume-crypt-tools-go-bin:
+    labels:
+      - "vscode=Crypt Tools Go Bin"

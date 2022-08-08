@@ -1,0 +1,21 @@
+{
+    "name": "Crypt Tools",
+    "dockerComposeFile": "docker-compose.yaml",
+    "service": "crypt-tools",
+    "workspaceFolder": "/go/src/github.com/Placidina/crypt-tools",
+    "remoteUser": "vscode",
+    "settings": {
+        "files.eol": "\n",
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.tabSize": 2,
+        "terminal.integrated.scrollback": 32000
+    },
+    "postCreateCommand": "sudo cp -R /tmp/.ssh-localhost/* ~/.ssh && sudo chown -R $(whoami):$(whoami) /go ~/.cache ~/.ssh && sudo chmod 400 ~/.ssh/* && git config --global core.editor vim && go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.48.0",
+    "postStartCommand": "go mod tidy && go mod verify",
+    "extensions": [
+        "mutantdino.resourcemonitor",
+        "eamodio.gitlens",
+        "davidanson.vscode-markdownlint",
+        "golang.Go"
+    ]
+}
